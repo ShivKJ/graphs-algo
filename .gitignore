@@ -1,0 +1,16 @@
+.classpath
+.project
+.settings/
+src/main/exp/
+target/
+
+*.json
+*.csv
+*.class
+*.txt
+*#*
+*Config*
+*.png
+*.jpeg
+*.xml
+
