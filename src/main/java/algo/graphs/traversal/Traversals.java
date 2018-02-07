@@ -37,8 +37,8 @@ public final class Traversals {
 	 */
 
 	public static final <T extends TraversalVertex> void bfs(Graph<T, ?> graph, T srcVrtx,
-	    Consumer<? super T> preProcessor,
-	    Consumer<? super T> postProcessor) {
+	    Consumer<T> preProcessor,
+	    Consumer<T> postProcessor) {
 		// Only those vertices will be processed which have status code "NEW". 
 		if (!isNew(srcVrtx))
 			return;
@@ -69,10 +69,9 @@ public final class Traversals {
 		private static final long	serialVersionUID	= 1L;
 		private final Consumer<T>	preProcessor , postProcessor;
 
-		@SuppressWarnings("unchecked")
-		public BFSQueue(Consumer<? super T> preProcessor, Consumer<? super T> postProcessor) {
-			this.preProcessor = (Consumer<T>) preProcessor;
-			this.postProcessor = (Consumer<T>) postProcessor;
+		public BFSQueue(Consumer<T> preProcessor, Consumer<T> postProcessor) {
+			this.preProcessor = preProcessor;
+			this.postProcessor = postProcessor;
 		}
 
 		@Override
