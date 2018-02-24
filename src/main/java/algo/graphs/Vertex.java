@@ -11,14 +11,8 @@ public interface Vertex {
 	@Override
 	String toString();
 
-	int uid();
+	<T> T userData();
 
-	default <T> T userData() {
-		return null;
-	}
-
-	default <T> void setUserData(T data) {
-		throw new UnsupportedOperationException();
-	}
+	<T> void setUserData(T data);
 
 }

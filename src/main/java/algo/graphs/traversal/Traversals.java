@@ -77,7 +77,7 @@ public final class Traversals {
 		@Override
 		public boolean add(T e) {
 			preProcessor.accept(e);
-			e.setCode(IN_PROGRESS);
+			e.code(IN_PROGRESS);
 
 			return super.add(e);
 		}
@@ -87,7 +87,7 @@ public final class Traversals {
 			T polled = super.poll();
 
 			postProcessor.accept(polled);
-			polled.setCode(DONE);
+			polled.code(DONE);
 
 			return polled;
 		}
@@ -123,7 +123,7 @@ public final class Traversals {
 			return;
 
 		preProcessing.accept(srcVrtx);
-		srcVrtx.setCode(IN_PROGRESS);
+		srcVrtx.code(IN_PROGRESS);
 
 		for (V v : graph.adjacentVertices(srcVrtx))
 			if (isNew(v)) {
@@ -132,7 +132,7 @@ public final class Traversals {
 			}
 
 		postProcessing.accept(srcVrtx);
-		srcVrtx.setCode(DONE);
+		srcVrtx.code(DONE);
 	}
 
 	public static <V extends TraversalVertex> boolean isConnected(Graph<V, ?> graph) {

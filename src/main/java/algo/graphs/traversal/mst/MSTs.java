@@ -16,6 +16,7 @@ import java.util.Queue;
 import algo.graphs.Edge;
 import algo.graphs.Graph;
 import algo.graphs.traversal.TraversalVertex;
+import algo.graphs.traversal.VertexTraversalCode;
 import algo.heap.AdaptablePriorityQueue;
 import algo.heap.ArrayPriorityQueue;
 import algo.heap.IndexedPNode;
@@ -42,51 +43,72 @@ public final class MSTs {
 	 * @return
 	 */
 
-	public static <V extends TraversalVertex, W extends Edge<? extends V>> Graph<V, W> kruskal(Graph<V, W> graph) {
+	public static <T extends TraversalVertex, E extends Edge<T>> Graph<T, E> kruskal(Graph<T, E> graph) {
+		Collection<T> vertices = graph.vertices();
+		vertices.forEach(MSTs::initialize);
 
-		List<W> mstEdges = new ArrayList<>();
+		Queue<E> edges = new PriorityQueue<>(comparingDouble(E::distance));
+		edges.addAll(graph.edges());
 
-		Collection<V> vertices = graph.vertices();
-		
-		vertices.forEach(Parent::new);// creating parent for each vertex.
+		int maxEdges = 2 * (vertices.size() - 1);//  undirected graphs will have 2*(V-1) number of edges for MST
 
-		Queue<W> edges = new PriorityQueue<>(comparingDouble(W::distance));
+		Collection<E> mstEdges = new ArrayList<>(maxEdges);
 
-		for (W w : edges) {
-			Parent pU = (Parent) w.getSrc().parent() , pV = (Parent) w.getDst().parent();
+		for (E w : edges) {
+			T src = w.getSrc() , dst = w.getDst();
+			TraversalVertex srcParent = parent(src) , dstParent = parent(dst);
 
-			if (pU != pV) {
+			if (srcParent != dstParent) {
+				merge(srcParent, dstParent);
+
 				mstEdges.add(w);
-				pU.merge(pV);// merging all children of pV to pU and setting parent to pU. 
+				mstEdges.add(graph.edge(dst, src).get());
+
+				if (mstEdges.size() == maxEdges)
+					break;
 			}
+
 		}
 
 		return new MSTGraph<>(vertices, mstEdges);
 	}
 
-	private final static class Parent extends TraversalVertex {
-		private Collection<TraversalVertex> vertices;
+	private static void initialize(TraversalVertex vertex) {
+		vertex.setParent(vertex);
+		vertex.setUserData(0);
+	}
 
-		Parent(TraversalVertex v) {
-			this.vertices = new LinkedList<>();
-			add(v);
+	private static TraversalVertex parent(TraversalVertex vertex) {
+		if (vertex.parent() != vertex) {
+			Queue<TraversalVertex> queue = new LinkedList<>();
+
+			do {
+				queue.add(vertex);
+				vertex = vertex.parent();
+			} while (vertex != vertex.parent());
+
+			for (TraversalVertex v : queue)
+				v.setParent(vertex);
+
 		}
 
-		void merge(Parent pv) {
-			pv.vertices.forEach(this::add);
-			pv.vertices = null;
+		return vertex;
+
+	}
+
+	private static void merge(TraversalVertex u, TraversalVertex v) {
+		Integer uRank = u.userData() , vRank = v.userData();
+
+		Integer rank = uRank == vRank ? uRank + 1 : uRank;
+
+		if (Integer.compare(u.userData(), v.userData()) <= 0) {
+			v.setParent(u);
+			u.setUserData(rank);
+		} else {
+			u.setParent(v);
+			u.setUserData(rank);
 		}
 
-		void add(TraversalVertex v) {
-			vertices.add(v);
-			v.setParent(this);
-
-		}
-
-		@Override
-		public int uid() {
-			throw new UnsupportedOperationException();
-		}
 	}
 
 	/**
@@ -103,7 +125,7 @@ public final class MSTs {
 	 */
 
 	@SuppressWarnings("unchecked")
-	public static <V extends TraversalVertex, W extends Edge<? extends V>> Graph<V, W> prim(Graph<V, W> graph) {
+	public static <V extends TraversalVertex, W extends Edge<V>> Graph<V, W> prim(Graph<V, W> graph) {
 
 		Collection<V> vertices = graph.vertices();
 
@@ -116,6 +138,7 @@ public final class MSTs {
 		src.setPriority(NEGATIVE_INFINITY);
 		src.getData().setParent(null);
 
+		// adding all vertices to priority queue
 		AdaptablePriorityQueue<IndexedPNode<V, Double>> priorityQueue = new ArrayPriorityQueue<>(vs, Double::compareTo);
 
 		Collection<W> edges = new ArrayList<>();
@@ -124,14 +147,17 @@ public final class MSTs {
 			IndexedPNode<V, Double> uNode = priorityQueue.poll();
 
 			V u = uNode.getData();
+			u.code(VertexTraversalCode.DONE);// vertex has been explored.
 
-			if (u.parent() != null)
+			if (u.parent() != null) {
 				edges.add(graph.edge((V) u.parent(), u).get());
+				edges.add(graph.edge(u, (V) u.parent()).get());
+			}
 
 			for (V v : graph.adjacentVertices(u)) {
 				IndexedPNode<V, Double> vNode = vToPQNode.get(v);
 
-				if (priorityQueue.contains(vNode)) {
+				if (v.code() != VertexTraversalCode.DONE) {
 					Double cost = graph.distance(u, v);
 
 					if (cost.compareTo(vNode.getPriority()) < 0) {

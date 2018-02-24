@@ -17,7 +17,7 @@ public final class Graphs {
 		return EMPTY_GRAPH;
 	}
 
-	private static final class EmptyGraph<V extends Vertex, W extends Edge<? extends V>> implements Graph<V, W> {
+	private static final class EmptyGraph<V extends Vertex, W extends Edge<V>> implements Graph<V, W> {
 
 		@Override
 		public Collection<V> vertices() {
@@ -38,7 +38,7 @@ public final class Graphs {
 		}
 
 		@Override
-		public void connect(V from, V to) {
+		public void connect(V from, V to,double dis) {
 			throw new UnsupportedOperationException();
 		}
 

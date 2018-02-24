@@ -27,7 +27,7 @@ public interface Graph<V extends Vertex, W extends Edge<? extends V>> {
 		vertices().add(vertex);
 	}
 
-	void connect(V from, V to);
+	void connect(V from, V to, double distance);
 
 	Collection<V> adjacentVertices(V vertex);
 
