@@ -6,8 +6,8 @@ import static java.util.stream.Collectors.toMap;
 import java.util.Collection;
 import java.util.Map;
 
-import algo.ds.adaptablePQ.IndexedPNode;
-import algo.ds.adaptablePQ.IndexedPNodeImpl;
+import algo.heap.IndexedPNode;
+import algo.heap.IndexedPNodeImpl;
 
 public final class Utils {
 	private Utils() {}

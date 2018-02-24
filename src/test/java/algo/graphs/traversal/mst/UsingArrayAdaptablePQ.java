@@ -3,9 +3,9 @@ package algo.graphs.traversal.mst;
 import java.util.ArrayList;
 import java.util.List;
 
-import algo.ds.adaptablePQ.AdaptablePriorityQueue;
-import algo.ds.adaptablePQ.ArrayPriorityQueue;
-import algo.ds.adaptablePQ.IndexedPNodeImpl;
+import algo.heap.AdaptablePriorityQueue;
+import algo.heap.ArrayPriorityQueue;
+import algo.heap.IndexedPNodeImpl;
 
 class UsingArrayAdaptablePQ {
 	public static void main(String[] args) {

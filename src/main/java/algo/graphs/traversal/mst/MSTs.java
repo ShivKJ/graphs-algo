@@ -3,20 +3,22 @@ package algo.graphs.traversal.mst;
 import static algo.graphs.traversal.Utils.traversalVertexToPQNode;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
-import static java.util.Collections.sort;
+import static java.util.Comparator.comparingDouble;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-import algo.ds.adaptablePQ.AdaptablePriorityQueue;
-import algo.ds.adaptablePQ.ArrayPriorityQueue;
-import algo.ds.adaptablePQ.IndexedPNode;
 import algo.graphs.Edge;
 import algo.graphs.Graph;
 import algo.graphs.traversal.TraversalVertex;
+import algo.heap.AdaptablePriorityQueue;
+import algo.heap.ArrayPriorityQueue;
+import algo.heap.IndexedPNode;
 
 /**
  * Minimum spanning tree(MST) is a tree, such that sum of edges present is minimum,
@@ -45,12 +47,10 @@ public final class MSTs {
 		List<W> mstEdges = new ArrayList<>();
 
 		Collection<V> vertices = graph.vertices();
-
+		
 		vertices.forEach(Parent::new);// creating parent for each vertex.
 
-		List<W> edges = new ArrayList<>(graph.edges());
-
-		sort(edges);
+		Queue<W> edges = new PriorityQueue<>(comparingDouble(W::distance));
 
 		for (W w : edges) {
 			Parent pU = (Parent) w.getSrc().parent() , pV = (Parent) w.getDst().parent();

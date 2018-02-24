@@ -6,9 +6,9 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import java.util.Random;
 
-import algo.ds.adaptablePQ.AdaptablePriorityQueue;
-import algo.ds.adaptablePQ.ArrayPriorityQueue;
-import algo.ds.adaptablePQ.IndexedPNodeImpl;
+import algo.heap.AdaptablePriorityQueue;
+import algo.heap.ArrayPriorityQueue;
+import algo.heap.IndexedPNodeImpl;
 
 class UsingAdaptablePQ {
 	public static void main(String[] args) {

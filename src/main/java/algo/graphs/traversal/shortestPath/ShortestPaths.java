@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import algo.ds.adaptablePQ.AdaptablePriorityQueue;
-import algo.ds.adaptablePQ.ArrayPriorityQueue;
-import algo.ds.adaptablePQ.IndexedPNode;
 import algo.graphs.Graph;
 import algo.graphs.traversal.TraversalVertex;
+import algo.heap.AdaptablePriorityQueue;
+import algo.heap.ArrayPriorityQueue;
+import algo.heap.IndexedPNode;
 
 public final class ShortestPaths {
 	private ShortestPaths() {}
