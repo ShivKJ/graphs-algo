@@ -1,6 +1,8 @@
 package algo.graphs.traversal.mst;
 
 import static algo.graphs.traversal.Utils.traversalVertexToPQNode;
+import static algo.graphs.traversal.VertexTraversalCode.DONE;
+import static algo.graphs.traversal.VertexTraversalCode.NEW;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 import static java.util.Comparator.comparingDouble;
@@ -16,7 +18,6 @@ import java.util.Queue;
 import algo.graphs.Edge;
 import algo.graphs.Graph;
 import algo.graphs.traversal.TraversalVertex;
-import algo.graphs.traversal.VertexTraversalCode;
 import algo.heap.AdaptablePriorityQueue;
 import algo.heap.ArrayPriorityQueue;
 import algo.heap.IndexedPNode;
@@ -45,6 +46,8 @@ public final class MSTs {
 
 	public static <T extends TraversalVertex, E extends Edge<T>> Graph<T, E> kruskal(Graph<T, E> graph) {
 		Collection<T> vertices = graph.vertices();
+		labelAsNew(vertices);
+
 		vertices.forEach(MSTs::initialize);
 
 		Queue<E> edges = new PriorityQueue<>(comparingDouble(E::distance));
@@ -54,8 +57,10 @@ public final class MSTs {
 
 		Collection<E> mstEdges = new ArrayList<>(maxEdges);
 
-		for (E w : edges) {
+		while (!edges.isEmpty()) {
+			E w = edges.poll();
 			T src = w.getSrc() , dst = w.getDst();
+
 			TraversalVertex srcParent = parent(src) , dstParent = parent(dst);
 
 			if (srcParent != dstParent) {
@@ -119,15 +124,15 @@ public final class MSTs {
 	 * Now we poll vertex from priority queue and update adjacent 
 	 * vertices if they in priority queue and has high distance stored.
 	 * 
-	 *  
 	 * @param graph
 	 * @return
 	 */
 
 	@SuppressWarnings("unchecked")
 	public static <V extends TraversalVertex, W extends Edge<V>> Graph<V, W> prim(Graph<V, W> graph) {
-
 		Collection<V> vertices = graph.vertices();
+
+		labelAsNew(vertices);
 
 		Map<V, IndexedPNode<V, Double>> vToPQNode = traversalVertexToPQNode(graph.vertices(), POSITIVE_INFINITY);
 
@@ -141,13 +146,13 @@ public final class MSTs {
 		// adding all vertices to priority queue
 		AdaptablePriorityQueue<IndexedPNode<V, Double>> priorityQueue = new ArrayPriorityQueue<>(vs, Double::compareTo);
 
-		Collection<W> edges = new ArrayList<>();
+		Collection<W> edges = new ArrayList<>(2 * (vs.size() - 1));
 
 		while (!priorityQueue.isEmpty()) {
 			IndexedPNode<V, Double> uNode = priorityQueue.poll();
 
 			V u = uNode.getData();
-			u.code(VertexTraversalCode.DONE);// vertex has been explored.
+			u.code(DONE);// vertex has been explored.
 
 			if (u.parent() != null) {
 				edges.add(graph.edge((V) u.parent(), u).get());
@@ -157,7 +162,7 @@ public final class MSTs {
 			for (V v : graph.adjacentVertices(u)) {
 				IndexedPNode<V, Double> vNode = vToPQNode.get(v);
 
-				if (v.code() != VertexTraversalCode.DONE) {
+				if (v.code() != DONE) {
 					Double cost = graph.distance(u, v);
 
 					if (cost.compareTo(vNode.getPriority()) < 0) {
@@ -171,4 +176,11 @@ public final class MSTs {
 		return new MSTGraph<>(vertices, edges);
 	}
 
+	private static void labelAsNew(Collection<? extends TraversalVertex> vertices) {
+		for (TraversalVertex traversalVertex : vertices) {
+			traversalVertex.code(NEW);
+			traversalVertex.setParent(null);
+		}
+
+	}
 }
