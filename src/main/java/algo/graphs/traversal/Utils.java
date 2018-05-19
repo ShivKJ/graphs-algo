@@ -1,5 +1,6 @@
 package algo.graphs.traversal;
 
+import static algo.graphs.traversal.VertexTraversalCode.NEW;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
@@ -18,4 +19,11 @@ public final class Utils {
 		               .collect(toMap(identity(), e -> new IndexedPNodeImpl<>(e, defaultVal)));
 	}
 
+	public static void labelAsNew(Collection<? extends TraversalVertex> vertices) {
+		for (TraversalVertex traversalVertex : vertices) {
+			traversalVertex.code(NEW);
+			traversalVertex.setParent(null);
+		}
+
+	}
 }

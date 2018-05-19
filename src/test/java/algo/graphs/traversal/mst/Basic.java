@@ -62,11 +62,26 @@ public class Basic {
 
 	}
 
-	static class ABCGraph implements Graph<Vrtx, Edge<Vrtx>> {
-		private final List<Vrtx>		vertices;
-		private final List<Edge<Vrtx>>	edges;
+	static class UndirectedGraph extends DirectedGraph {
 
-		public ABCGraph() {
+		@Override
+		public void connect(Vrtx from, Vrtx to, double distance) {
+			super.connect(from, to, distance);
+			to.connect(new DirectionalEdge(to, from, distance));
+		}
+
+		@Override
+		public Optional<Edge<Vrtx>> edge(Vrtx src, Vrtx dst) {
+			return ofNullable(super.edge(src, dst).orElse(dst.mapper.get(src)));
+		}
+
+	}
+
+	static class DirectedGraph implements Graph<Vrtx, Edge<Vrtx>> {
+		protected final List<Vrtx>			vertices;
+		protected final List<Edge<Vrtx>>	edges;
+
+		public DirectedGraph() {
 			this.vertices = new LinkedList<>();
 			this.edges = new LinkedList<>();
 		}
@@ -84,19 +99,14 @@ public class Basic {
 
 		@Override
 		public Optional<Edge<Vrtx>> edge(Vrtx src, Vrtx dst) {
-			return ofNullable(ofNullable(src.mapper.get(dst)).orElse(dst.mapper.get(src)));
+			return ofNullable(src.mapper.get(dst));
 		}
 
 		@Override
 		public void connect(Vrtx from, Vrtx to, double distance) {
 			DirectionalEdge forward = new DirectionalEdge(from, to, distance);
-			DirectionalEdge backwork = new DirectionalEdge(to, from, distance);
-
 			from.connect(forward);
-			to.connect(backwork);
-
 			edges.add(forward);
-			//			edges.add(backwork);// not adding backword edges
 
 		}
 

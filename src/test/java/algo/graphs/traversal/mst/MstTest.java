@@ -51,7 +51,7 @@ public class MstTest {
 		for (int i = 0; i < 20; i++) {
 			int size = 10 + RANDOM.nextInt(500);
 
-			Graph<Vrtx, Edge<Vrtx>> graph = new Basic.ABCGraph();
+			Graph<Vrtx, Edge<Vrtx>> graph = new Basic.UndirectedGraph();
 
 			populate(graph, size);
 

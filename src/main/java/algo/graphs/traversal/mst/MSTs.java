@@ -1,8 +1,8 @@
 package algo.graphs.traversal.mst;
 
+import static algo.graphs.traversal.Utils.labelAsNew;
 import static algo.graphs.traversal.Utils.traversalVertexToPQNode;
 import static algo.graphs.traversal.VertexTraversalCode.DONE;
-import static algo.graphs.traversal.VertexTraversalCode.NEW;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 import static java.util.Comparator.comparingDouble;
@@ -176,11 +176,4 @@ public final class MSTs {
 		return new MSTGraph<>(vertices, edges);
 	}
 
-	private static void labelAsNew(Collection<? extends TraversalVertex> vertices) {
-		for (TraversalVertex traversalVertex : vertices) {
-			traversalVertex.code(NEW);
-			traversalVertex.setParent(null);
-		}
-
-	}
 }
