@@ -1,9 +1,7 @@
+package algo.graph.coloring;
 
 import static java.lang.Integer.parseInt;
-import static java.lang.System.out;
-import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.joining;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +16,6 @@ import java.util.stream.IntStream;
 import algo.graphs.Edge;
 import algo.graphs.Graph;
 import algo.graphs.Vertex;
-import algo.graphs.coloring.ColoringGraph1;
 
 public class GraphImpl implements Graph<Vertex, Edge<Vertex>> {
 	private VertexImpl[] vertices;
@@ -92,10 +89,10 @@ public class GraphImpl implements Graph<Vertex, Edge<Vertex>> {
 
 	//-----------------------------------------------------------------------
 
-	private static class VertexImpl implements Vertex, Comparable<VertexImpl> {
+	 static class VertexImpl implements Vertex, Comparable<VertexImpl> {
 		private final int			index;
 		private Object				userData;
-		private final Set<Vertex>	adj;
+		 final Set<Vertex>	adj;
 
 		VertexImpl(int index) {
 			this.index = index;
@@ -139,11 +136,5 @@ public class GraphImpl implements Graph<Vertex, Edge<Vertex>> {
 			return obj instanceof VertexImpl && ((VertexImpl) obj).index == index;
 		}
 
-	}
-
-	public static void main(String[] args) {
-		Graph<Vertex, Edge<Vertex>> graph = new GraphImpl(get(args[0]));
-		out.println(new ColoringGraph1(graph).color() + " " + 0);
-		out.println(graph.vertices().stream().map(Vertex::userData).map(String::valueOf).collect(joining(" ")));
 	}
 }

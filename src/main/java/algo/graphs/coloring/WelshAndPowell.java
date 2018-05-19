@@ -2,20 +2,23 @@ package algo.graphs.coloring;
 
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Sets.difference;
+import static java.util.Collections.reverseOrder;
 import static java.util.stream.Collectors.toCollection;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import algo.graphs.Edge;
 import algo.graphs.Graph;
 import algo.graphs.Vertex;
 
-public class ColoringGraph1 {
-	Graph<Vertex, Edge<Vertex>>	graph;
-	Set<Integer>				colors;
+public class WelshAndPowell {
+	private final Graph<Vertex, Edge<Vertex>>	graph;
+	private final Set<Integer>					colors;
 
-	public ColoringGraph1(Graph<Vertex, Edge<Vertex>> graph) {
+	public WelshAndPowell(Graph<Vertex, Edge<Vertex>> graph) {
 		this.graph = graph;
 		this.colors = new HashSet<>();
 	}
@@ -24,9 +27,14 @@ public class ColoringGraph1 {
 		if (graph.isEmpty())
 			return 0;
 
-		color(graph.vertices().iterator().next());
+		List<Vertex> vertices = new ArrayList<>(graph.vertices());
+		vertices.sort(reverseOrder());
+
+		for (Vertex vertex : vertices)
+			color(vertex);
 
 		return colors.size();
+
 	}
 
 	private void color(Vertex src) {
@@ -42,7 +50,7 @@ public class ColoringGraph1 {
 		                                .collect(toCollection(HashSet<Integer>::new));
 
 		Set<Integer> diff = difference(colors, adjacentCol);
-		
+
 		int color = 0;
 
 		if (diff.isEmpty()) {
@@ -52,10 +60,6 @@ public class ColoringGraph1 {
 			color = diff.iterator().next();
 
 		src.setUserData(color);
-
-		for (Vertex adj : graph.adjacentVertices(src))
-			color(adj);
-
 	}
 
 }

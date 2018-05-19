@@ -13,4 +13,4 @@ target/
 *.png
 *.jpeg
 *.xml
-
+data/
