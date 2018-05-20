@@ -1,10 +1,10 @@
 package algo.graphs.coloring;
 
-import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Sets.difference;
 import static java.util.stream.Collectors.toCollection;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import algo.graphs.Edge;
@@ -30,14 +30,13 @@ public class Greedy {
 	}
 
 	private void color(Vertex src) {
-
 		if (src.userData() != null)
 			return;
 
 		Set<Integer> adjacentCol = graph.adjacentVertices(src)
 		                                .stream()
 		                                .map(Vertex::userData)
-		                                .filter(notNull())
+		                                .filter(Objects::nonNull)
 		                                .map(Integer.class::cast)
 		                                .collect(toCollection(HashSet<Integer>::new));
 

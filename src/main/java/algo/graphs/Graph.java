@@ -37,4 +37,8 @@ public interface Graph<V extends Vertex, W extends Edge<? extends V>> {
 		return vertices().isEmpty();
 	}
 
+	default void resetUsertData() {
+		vertices().forEach(x -> x.setUserData(null));
+	}
+
 }
