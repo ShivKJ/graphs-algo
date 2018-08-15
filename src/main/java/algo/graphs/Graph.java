@@ -33,4 +33,12 @@ public interface Graph<V extends Vertex, W extends Edge<? extends V>> {
 
 	Collection<W> adjacentEdges(V vertex);
 
+	default boolean isEmpty() {
+		return vertices().isEmpty();
+	}
+
+	default void resetUsertData() {
+		vertices().forEach(x -> x.setUserData(null));
+	}
+
 }

@@ -26,11 +26,12 @@ public final class ShortestPaths {
 	 * @param v
 	 * @param w
 	 */
-	private static <PQ extends IndexedPNode<? extends TraversalVertex, Double>, T, P extends Comparable<P>> void relax(PQ u, PQ v, double w) {
+	private static <PQ extends IndexedPNode<? extends TraversalVertex, Double>, T, P extends Comparable<P>> void relax(PQ u, PQ v,
+	    double w, AdaptablePriorityQueue<PQ> pq) {
 		Double uData = u.getPriority() , vData = v.getPriority();
 
 		if (vData > uData + w) {
-			v.setPriority(uData + w);
+			pq.updatePriority(v, uData + w);
 			v.getData().setParent(u.getData());
 		}
 	}
@@ -56,7 +57,8 @@ public final class ShortestPaths {
 		src.setParent(null);
 		srcNode.setPriority(0);// so that it is popped first.
 
-		AdaptablePriorityQueue<IndexedPNode<T, Double>> pq = new ArrayPriorityQueue<>(vertexToPQNode.values());
+		AdaptablePriorityQueue<IndexedPNode<T, Double>> pq = new ArrayPriorityQueue<>(vertexToPQNode.values(), Double::compare);
+
 		boolean reachableToDst = false;
 
 		do {
@@ -64,7 +66,7 @@ public final class ShortestPaths {
 			T u = uNode.getData();
 
 			for (T v : graph.adjacentVertices(u)) {
-				relax(uNode, vertexToPQNode.get(v), graph.distance(u, v));
+				relax(uNode, vertexToPQNode.get(v), graph.distance(u, v), pq);
 				// we update distance from u -> v and set v's parent to u which will be used to find path.
 				if (v == dst)
 					reachableToDst = true;
