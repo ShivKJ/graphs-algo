@@ -15,7 +15,7 @@ import algo.graphs.Graph;
 public final class Traversals {
 	public Traversals() {}
 
-	//-----------------------------------------  BFS -----------------------------------------------------
+	// ----------------------------------------- BFS -----------------------------------------------------
 	/**
 	 * This function implements breadth first search starting from a source vertex.
 	 * 
@@ -37,9 +37,9 @@ public final class Traversals {
 	 */
 
 	public static final <T extends TraversalVertex> void bfs(Graph<T, ?> graph, T srcVrtx,
-	    Consumer<T> preProcessor,
-	    Consumer<T> postProcessor) {
-		// Only those vertices will be processed which have status code "NEW". 
+	                                                         Consumer<T> preProcessor,
+	                                                         Consumer<T> postProcessor) {
+		// Only those vertices will be processed which have status code "NEW".
 		if (!isNew(srcVrtx))
 			return;
 
@@ -64,10 +64,10 @@ public final class Traversals {
 		bfs(graph, srcVrtx, t -> {}, t -> {});
 	}
 
-	private static final class BFSQueue<T extends TraversalVertex> extends LinkedList<T> {
+	private static final class BFSQueue<T extends TraversalVertex>extends LinkedList<T> {
 
-		private static final long	serialVersionUID	= 1L;
-		private final Consumer<T>	preProcessor , postProcessor;
+		private static final long serialVersionUID = 1L;
+		private final Consumer<T> preProcessor, postProcessor;
 
 		public BFSQueue(Consumer<T> preProcessor, Consumer<T> postProcessor) {
 			this.preProcessor = preProcessor;
@@ -93,7 +93,7 @@ public final class Traversals {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------------------------
 	private static boolean isNew(TraversalVertex v) {
 		return v.code() == NEW;
 	}
@@ -102,7 +102,7 @@ public final class Traversals {
 		return v.code() == DONE;
 	}
 
-	//-------------------------------------------- DFS --------------------------------------------------
+	// -------------------------------------------- DFS --------------------------------------------------
 
 	/**
 	 * This function implements depth first search.
@@ -116,8 +116,8 @@ public final class Traversals {
 	 * @param postProcessing
 	 */
 	public static <V extends TraversalVertex> void dfs(Graph<V, ?> graph, V srcVrtx,
-	    Consumer<? super V> preProcessing,
-	    Consumer<? super V> postProcessing) {
+	                                                   Consumer<? super V> preProcessing,
+	                                                   Consumer<? super V> postProcessing) {
 
 		if (!isNew(srcVrtx))
 			return;

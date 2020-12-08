@@ -12,8 +12,8 @@ import algo.graphs.Graph;
 import algo.graphs.Vertex;
 
 public class Greedy {
-	private final Graph<Vertex, Edge<Vertex>>	graph;
-	private final Set<Integer>					colors;
+	private final Graph<Vertex, Edge<Vertex>> graph;
+	private final Set<Integer>                colors;
 
 	public Greedy(Graph<Vertex, Edge<Vertex>> graph) {
 		this.graph = graph;

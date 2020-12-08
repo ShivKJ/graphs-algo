@@ -5,8 +5,8 @@ import static java.lang.Double.compare;
 import java.util.Objects;
 
 public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
-	private final static double	TOL	= 1e-7;
-	private final T				src , dst;
+	private final static double TOL = 1e-7;
+	private final T             src, dst;
 
 	public Edge(T src, T dst) {
 		this.src = src;
@@ -27,10 +27,11 @@ public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
 	public int compareTo(Edge<T> o) {
 		return compare(distance(), o.distance());
 	}
+
 	@Override
 	public String toString() {
-		
-		return src+"->"+dst;
+
+		return src + "->" + dst;
 	}
 
 	@Override

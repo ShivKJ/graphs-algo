@@ -16,8 +16,8 @@ import algo.graphs.traversal.TraversalVertex;
 
 public class Basic {
 	static class Vrtx extends TraversalVertex {
-		final String				representation;
-		final Map<Vrtx, Edge<Vrtx>>	mapper;
+		final String                representation;
+		final Map<Vrtx, Edge<Vrtx>> mapper;
 
 		public Vrtx(String representation) {
 			this.representation = representation;
@@ -78,8 +78,8 @@ public class Basic {
 	}
 
 	static class DirectedGraph implements Graph<Vrtx, Edge<Vrtx>> {
-		protected final List<Vrtx>			vertices;
-		protected final List<Edge<Vrtx>>	edges;
+		protected final List<Vrtx>       vertices;
+		protected final List<Edge<Vrtx>> edges;
 
 		public DirectedGraph() {
 			this.vertices = new LinkedList<>();

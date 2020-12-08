@@ -38,7 +38,7 @@ public final class Graphs {
 		}
 
 		@Override
-		public void connect(V from, V to,double dis) {
+		public void connect(V from, V to, double dis) {
 			throw new UnsupportedOperationException();
 		}
 

@@ -53,15 +53,15 @@ public final class MSTs {
 		Queue<E> edges = new PriorityQueue<>(comparingDouble(E::distance));
 		edges.addAll(graph.edges());
 
-		int maxEdges = 2 * (vertices.size() - 1);//  undirected graphs will have 2*(V-1) number of edges for MST
+		int maxEdges = 2 * (vertices.size() - 1);// undirected graphs will have 2*(V-1) number of edges for MST
 
 		Collection<E> mstEdges = new ArrayList<>(maxEdges);
 
 		while (!edges.isEmpty()) {
 			E w = edges.poll();
-			T src = w.getSrc() , dst = w.getDst();
+			T src = w.getSrc(), dst = w.getDst();
 
-			TraversalVertex srcParent = parent(src) , dstParent = parent(dst);
+			TraversalVertex srcParent = parent(src), dstParent = parent(dst);
 
 			if (srcParent != dstParent) {
 				merge(srcParent, dstParent);
@@ -102,7 +102,7 @@ public final class MSTs {
 	}
 
 	private static void merge(TraversalVertex u, TraversalVertex v) {
-		Integer uRank = u.userData() , vRank = v.userData();
+		Integer uRank = u.userData(), vRank = v.userData();
 
 		Integer rank = uRank == vRank ? uRank + 1 : uRank;
 

@@ -27,8 +27,9 @@ public final class ShortestPaths {
 	 * @param w
 	 */
 	private static <PQ extends IndexedPNode<? extends TraversalVertex, Double>, T, P extends Comparable<P>> void relax(PQ u, PQ v,
-	    double w, AdaptablePriorityQueue<PQ> pq) {
-		Double uData = u.getPriority() , vData = v.getPriority();
+	                                                                                                                   double w,
+	                                                                                                                   AdaptablePriorityQueue<PQ> pq) {
+		Double uData = u.getPriority(), vData = v.getPriority();
 
 		if (vData > uData + w) {
 			pq.updatePriority(v, uData + w);

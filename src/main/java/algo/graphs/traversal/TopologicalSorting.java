@@ -17,8 +17,8 @@ public class TopologicalSorting<T extends TraversalVertex> {
 	 * It is simply DFS, just that we need to maintain the order of visit.
 	 */
 
-	private final Graph<T, ?>	graph;
-	private final Queue<T>		outputStack;
+	private final Graph<T, ?> graph;
+	private final Queue<T>    outputStack;
 
 	@SuppressWarnings("unchecked")
 	public TopologicalSorting(Graph<? extends TraversalVertex, ?> graph) {

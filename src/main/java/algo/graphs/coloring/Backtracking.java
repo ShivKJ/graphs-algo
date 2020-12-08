@@ -13,8 +13,8 @@ import algo.graphs.Graph;
 import algo.graphs.Vertex;
 
 public class Backtracking {
-	private final Graph<Vertex, Edge<Vertex>>	graph;
-	private final Set<Integer>					colors;
+	private final Graph<Vertex, Edge<Vertex>> graph;
+	private final Set<Integer>                colors;
 
 	private Backtracking(Graph<Vertex, Edge<Vertex>> graph, int maxColor) {
 		this.graph = graph;

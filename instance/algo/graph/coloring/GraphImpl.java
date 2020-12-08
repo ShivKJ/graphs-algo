@@ -64,7 +64,7 @@ public class GraphImpl implements Graph<Vertex, Edge<Vertex>> {
 		connect(vertices[parseInt(split[0])], vertices[parseInt(split[1])], 1);
 	}
 
-	//-----------------------------------------------------------------------
+	// -----------------------------------------------------------------------
 	@Override
 	public Collection<Edge<Vertex>> edges() {
 		throw new UnsupportedOperationException();
@@ -87,12 +87,12 @@ public class GraphImpl implements Graph<Vertex, Edge<Vertex>> {
 		throw new UnsupportedOperationException();
 	}
 
-	//-----------------------------------------------------------------------
+	// -----------------------------------------------------------------------
 
-	 static class VertexImpl implements Vertex, Comparable<VertexImpl> {
-		private final int			index;
-		private Object				userData;
-		 final Set<Vertex>	adj;
+	static class VertexImpl implements Vertex, Comparable<VertexImpl> {
+		private final int index;
+		private Object    userData;
+		final Set<Vertex> adj;
 
 		VertexImpl(int index) {
 			this.index = index;

@@ -3,9 +3,9 @@ package algo.graphs.traversal;
 import algo.graphs.Vertex;
 
 public class TraversalVertex implements Vertex {
-	private TraversalVertex		parent;
-	private Object				data;
-	private VertexTraversalCode	code;
+	private TraversalVertex     parent;
+	private Object              data;
+	private VertexTraversalCode code;
 
 	public TraversalVertex() {
 		this.parent = null;

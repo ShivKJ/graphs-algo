@@ -9,11 +9,11 @@ import algo.heap.IndexedPNodeImpl;
 
 class UsingArrayAdaptablePQ {
 	public static void main(String[] args) {
-		IndexedPNodeImpl<?, Integer> n1 = new IndexedPNodeImpl<>("S", 1) ,
-				n2 = new IndexedPNodeImpl<>("A", 2) ,
-				n3 = new IndexedPNodeImpl<>("B", 3) ,
-				n4 = new IndexedPNodeImpl<>("C", 4) ,
-				n5 = new IndexedPNodeImpl<>("D", 4);
+		IndexedPNodeImpl<?, Integer> n1 = new IndexedPNodeImpl<>("S", 1),
+		n2 = new IndexedPNodeImpl<>("A", 2),
+		n3 = new IndexedPNodeImpl<>("B", 3),
+		n4 = new IndexedPNodeImpl<>("C", 4),
+		n5 = new IndexedPNodeImpl<>("D", 4);
 		List<IndexedPNodeImpl<?, Integer>> list = new ArrayList<>();
 		list.add(n1);
 		list.add(n2);

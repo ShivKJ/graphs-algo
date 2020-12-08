@@ -19,12 +19,12 @@ public class Test {
 		Graph<Vertex, Edge<Vertex>> graph = new GraphImpl(get(args[0]));
 
 		switch (args[1]) {
-			case "0":
-				out.println(new Greedy(graph).color() + " " + 0);
-				break;
-			case "1":
-				out.println(new WelshAndPowell(graph).color() + " " + 0);
-				break;
+		case "0":
+			out.println(new Greedy(graph).color() + " " + 0);
+			break;
+		case "1":
+			out.println(new WelshAndPowell(graph).color() + " " + 0);
+			break;
 		}
 
 		out.println(graph.vertices().stream().map(Vertex::userData).map(String::valueOf).collect(joining(" ")));

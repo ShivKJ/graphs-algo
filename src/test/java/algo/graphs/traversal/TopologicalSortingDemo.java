@@ -77,10 +77,10 @@ class HashableGraph<E> implements Graph<HashableVertex, Edge<HashableVertex>> {
 }
 
 class HashableVertex extends TraversalVertex {
-	private static int					indexer	= 0;
-	private final Set<HashableVertex>	adja;
-	private Object						data;
-	private final int					I;
+	private static int                indexer = 0;
+	private final Set<HashableVertex> adja;
+	private Object                    data;
+	private final int                 I;
 
 	public HashableVertex(Object data) {
 		this.data = data;

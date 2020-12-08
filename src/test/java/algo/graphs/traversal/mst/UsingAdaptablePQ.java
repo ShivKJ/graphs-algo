@@ -20,8 +20,8 @@ class UsingAdaptablePQ {
 			adaptablePriorityQueue.add(pqNode);
 		adaptablePriorityQueue.addAll(nodes);
 
-		//		while (!adaptablePriorityQueue.isEmpty())
-		//			adaptablePriorityQueue.poll();
+		// while (!adaptablePriorityQueue.isEmpty())
+		// adaptablePriorityQueue.poll();
 		System.out.println(currentTimeMillis() - time);
 	}
 }
