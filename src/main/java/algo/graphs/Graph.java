@@ -10,6 +10,12 @@ public interface Graph<V extends Vertex, W extends Edge<? extends V>> {
 
 	Collection<W> edges();
 
+	/**
+	 * Graph can not have more than one edge between two vertices
+	 * @param src
+	 * @param dst
+	 * @return optional object containing the edge from src to dst
+	 */
 	Optional<W> edge(V src, V dst);
 
 	/**
@@ -37,6 +43,9 @@ public interface Graph<V extends Vertex, W extends Edge<? extends V>> {
 		return vertices().isEmpty();
 	}
 
+	/**
+	 * setting user data stored to each vertex to null
+	 */
 	default void resetUsertData() {
 		vertices().forEach(x -> x.setUserData(null));
 	}

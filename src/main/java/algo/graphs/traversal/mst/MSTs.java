@@ -53,14 +53,14 @@ public final class MSTs {
 		Queue<E> edges = new PriorityQueue<>(comparingDouble(E::distance));
 		edges.addAll(graph.edges());
 
-		int maxEdges = 2 * (vertices.size() - 1);// undirected graphs will have 2*(V-1) number of edges for MST
+		int maxEdges = (vertices.size() - 1);// undirected graphs will have (V-1) number of edges for MST
 
 		Collection<E> mstEdges = new ArrayList<>(maxEdges);
 
 		while (!edges.isEmpty()) {
 			E w = edges.poll();
 			T src = w.getSrc(), dst = w.getDst();
-
+			// using union-find method
 			TraversalVertex srcParent = parent(src), dstParent = parent(dst);
 
 			if (srcParent != dstParent) {
@@ -78,11 +78,21 @@ public final class MSTs {
 		return new MSTGraph<>(vertices, mstEdges);
 	}
 
+	/**
+	 * initializing vertex for union-find method and setting each vertex to its parent
+	 * @param vertex
+	 */
 	private static void initialize(TraversalVertex vertex) {
 		vertex.setParent(vertex);
-		vertex.setUserData(0);
+		vertex.setUserData(0);// storing rank in user data
 	}
 
+	/**
+	 * 
+	 * @param vertex
+	 * @return root of this vertex which is found by such ancestor of this vertex 
+	 * which is its own parent.
+	 */
 	private static TraversalVertex parent(TraversalVertex vertex) {
 		if (vertex.parent() != vertex) {
 			Queue<TraversalVertex> queue = new LinkedList<>();
@@ -104,16 +114,14 @@ public final class MSTs {
 	private static void merge(TraversalVertex u, TraversalVertex v) {
 		Integer uRank = u.userData(), vRank = v.userData();
 
-		Integer rank = uRank == vRank ? uRank + 1 : uRank;
-
-		if (Integer.compare(u.userData(), v.userData()) <= 0) {
+		if (uRank > vRank)
 			v.setParent(u);
-			u.setUserData(rank);
-		} else {
+		else {
 			u.setParent(v);
-			u.setUserData(rank);
-		}
 
+			if (uRank == vRank)
+				v.setUserData(vRank + 1);
+		}
 	}
 
 	/**

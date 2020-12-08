@@ -17,23 +17,27 @@ public final class Graphs {
 		return EMPTY_GRAPH;
 	}
 
+	/**
+	 * Defining an Empty Graph which has no vertex and edge
+	 * @author ShivKJ
+	 *
+	 * @param <V>
+	 * @param <W>
+	 */
 	private static final class EmptyGraph<V extends Vertex, W extends Edge<V>> implements Graph<V, W> {
 
 		@Override
 		public Collection<V> vertices() {
-
 			return emptyList();
 		}
 
 		@Override
 		public Collection<W> edges() {
-
 			return emptyList();
 		}
 
 		@Override
 		public Optional<W> edge(V src, V dst) {
-
 			return empty();
 		}
 
@@ -44,13 +48,11 @@ public final class Graphs {
 
 		@Override
 		public Collection<V> adjacentVertices(V vertex) {
-
 			return emptyList();
 		}
 
 		@Override
 		public Collection<W> adjacentEdges(V vertex) {
-
 			return emptyList();
 		}
 

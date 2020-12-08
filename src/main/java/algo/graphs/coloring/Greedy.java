@@ -20,6 +20,11 @@ public class Greedy {
 		this.colors = new HashSet<>();
 	}
 
+	/**
+	 * @return number of colors required to color vertices of graph such that no adjacent vertices gets same color. 
+	 * Graph should have only one component.
+	 * @implNote this is not the minimum number of colors needed
+	 */
 	public int color() {
 		if (graph.isEmpty())
 			return 0;
@@ -42,7 +47,7 @@ public class Greedy {
 
 		Set<Integer> diff = difference(colors, adjacentCol);
 
-		int color = 0;
+		int color;
 
 		if (diff.isEmpty()) {
 			color = colors.size() + 1;

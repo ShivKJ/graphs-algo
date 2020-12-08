@@ -1,18 +1,19 @@
 package algo.graphs;
 
 import static java.lang.Double.compare;
-
-import java.util.Objects;
+import static java.util.Objects.hash;
 
 public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
-	private final static double TOL = 1e-7;
-	private final T             src, dst;
+	private final T src, dst;
 
 	public Edge(T src, T dst) {
 		this.src = src;
 		this.dst = dst;
 	}
 
+	/**
+	 * @return weight of edge
+	 */
 	public abstract double distance();
 
 	public T getSrc() {
@@ -23,6 +24,10 @@ public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
 		return dst;
 	}
 
+	/**
+	 * @param o
+	 * @return comparing the other edge with this edge with respect to weight(distance between two vertices of this edge) of edge
+	 */
 	@Override
 	public int compareTo(Edge<T> o) {
 		return compare(distance(), o.distance());
@@ -30,7 +35,6 @@ public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
 
 	@Override
 	public String toString() {
-
 		return src + "->" + dst;
 	}
 
@@ -38,7 +42,7 @@ public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
 	public boolean equals(Object obj) {
 		if (obj instanceof Edge<?>) {
 			Edge<?> edge = (Edge<?>) obj;
-			return Math.abs(distance() - edge.distance()) <= TOL && src.equals(edge.src) && dst.equals(edge.dst);
+			return src.equals(edge.src) && dst.equals(edge.dst);
 		}
 
 		return false;
@@ -46,8 +50,7 @@ public abstract class Edge<T extends Vertex> implements Comparable<Edge<T>> {
 
 	@Override
 	public int hashCode() {
-
-		return Objects.hash(src, dst);
+		return hash(src, dst);
 	}
 
 }

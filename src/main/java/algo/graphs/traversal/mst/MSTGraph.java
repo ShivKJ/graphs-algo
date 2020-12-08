@@ -16,27 +16,23 @@ import algo.graphs.Graph;
 import algo.graphs.Vertex;
 
 class MSTGraph<V extends Vertex, W extends Edge<V>> implements Graph<V, W> {
-	private final Collection<V> vertices;
-	private final Collection<W> edges;
-
+	private final Collection<V>     vertices;
+	private final Collection<W>     edges;
 	private final Map<V, Map<V, W>> edgeMapper;
 
 	MSTGraph(Collection<V> vertices, Collection<W> edges) {
 		this.vertices = vertices;
 		this.edges = edges;
-
 		this.edgeMapper = edges.stream().collect(groupingBy(W::getSrc, toMap(W::getDst, identity())));
 	}
 
 	@Override
 	public Collection<V> vertices() {
-
 		return vertices;
 	}
 
 	@Override
 	public Collection<W> edges() {
-
 		return edges;
 	}
 
@@ -59,5 +55,4 @@ class MSTGraph<V extends Vertex, W extends Edge<V>> implements Graph<V, W> {
 	public void connect(V from, V to, double distance) {
 		throw new UnsupportedOperationException();
 	}
-
 }

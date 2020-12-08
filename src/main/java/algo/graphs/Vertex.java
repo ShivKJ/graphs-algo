@@ -2,6 +2,10 @@ package algo.graphs;
 
 public interface Vertex {
 
+	<T> T userData();
+
+	<T> void setUserData(T data);
+
 	@Override
 	int hashCode();
 
@@ -10,9 +14,5 @@ public interface Vertex {
 
 	@Override
 	String toString();
-
-	<T> T userData();
-
-	<T> void setUserData(T data);
 
 }

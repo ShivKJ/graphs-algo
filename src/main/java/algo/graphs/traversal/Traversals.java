@@ -25,7 +25,7 @@ public final class Traversals {
 	 * Implementation uses Queue data structure(FIFO). 
 	 * Key idea is to poll vertex from queue and enqueue adjacent unvisited vertices.
 	 *   
-	 * During enqueuing and dequeuing operation, the vertex can be processed via 
+	 * During en-queuing and dequeuing operation, the vertex can be processed via 
 	 * Consumer preProcessor and postProcessor. 
 	 * VertexTraversalCode is updated during these operation accordingly.
 	 * 
@@ -135,6 +135,14 @@ public final class Traversals {
 		srcVrtx.code(DONE);
 	}
 
+	/**
+	 * Checking if graph is connected.
+	 * Traversing from a random vertex and if from that vertex all the vertices can be reached in bfs, 
+	 * then graph is connected
+	 * @param <V>
+	 * @param graph
+	 * @return
+	 */
 	public static <V extends TraversalVertex> boolean isConnected(Graph<V, ?> graph) {
 		Collection<V> vs = graph.vertices();
 

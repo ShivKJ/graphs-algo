@@ -3,9 +3,9 @@ package algo.graphs.traversal;
 import algo.graphs.Vertex;
 
 public class TraversalVertex implements Vertex {
-	private TraversalVertex     parent;
-	private Object              data;
-	private VertexTraversalCode code;
+	private TraversalVertex     parent;// vertex which was visited just before this vertex (one of the neighboring vertices)
+	private Object              data;// stored data in this vertex
+	private VertexTraversalCode code;// defines the status of vertex in traversal
 
 	public TraversalVertex() {
 		this.parent = null;
@@ -27,7 +27,6 @@ public class TraversalVertex implements Vertex {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T userData() {
-
 		return (T) data;
 	}
 
@@ -39,4 +38,13 @@ public class TraversalVertex implements Vertex {
 		this.code = code;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		throw new UnsupportedOperationException("equals method has not been implemented ");
+	}
+
+	@Override
+	public int hashCode() {
+		throw new UnsupportedOperationException("hasCode method has not been implemented ");
+	}
 }

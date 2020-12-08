@@ -33,7 +33,7 @@ public class WelshAndPowell {
 
 		vertices.sort(comparingInt(this::adjacentVertices).reversed());
 
-		for (Vertex vertex : vertices)
+		for (Vertex vertex : vertices)// processing those vertices first which has more adjacent vertices
 			color(vertex);
 
 		return colors.size();
@@ -45,7 +45,6 @@ public class WelshAndPowell {
 	}
 
 	private void color(Vertex src) {
-
 		Set<Integer> adjacentCol = graph.adjacentVertices(src)
 		                                .stream()
 		                                .map(Vertex::userData)
@@ -53,15 +52,14 @@ public class WelshAndPowell {
 		                                .map(Integer.class::cast)
 		                                .collect(toSet());
 
-		Optional<Integer> minColor = difference(colors, adjacentCol).stream()
-		                                                            .min(naturalOrder());
+		Optional<Integer> minColor = difference(colors, adjacentCol).stream().min(naturalOrder());
 
-		int color = 0;
+		int color;
 
 		if (minColor.isPresent())
 			color = minColor.get();
 		else {
-			color = colors.size();
+			color = colors.size();// creating new color
 			colors.add(color);
 		}
 
